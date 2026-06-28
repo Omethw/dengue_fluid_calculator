@@ -3,422 +3,172 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>Recovery Tracker For Dilaraaa 🥰🥰🥰</title>
+  <title>Recovery Tracker</title>
   <link rel="manifest" href="/manifest.json"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Recovery"/>
   <meta name="theme-color" content="#0A6B61"/>
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='38' fill='%230A6B61'/><text y='126' x='90' text-anchor='middle' font-size='104'>💧</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&display=swap" rel="stylesheet"/>
 
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
     :root{
-      --teal:      #0A6B61;
-      --teal-m:    #0D8577;
-      --teal-l:    #12A090;
-      --teal-xl:   #7ECEC7;
-      --teal-2xl:  #C2E8E5;
-      --teal-3xl:  #E8F7F6;
-      --coral:     #E05C44;
-      --coral-dim: #FEF0ED;
-      --amber:     #D97706;
-      --amber-dim: #FFFBEB;
-      --green:     #059669;
-      --green-dim: #ECFDF5;
-      --bg:        #F0FAF9;
-      --card:      #FFFFFF;
-      --text:      #0F2422;
-      --text-2:    #3D6460;
-      --muted:     #82ABA7;
-      --border:    #C8E8E5;
-      --sh-sm:     0 1px 4px rgba(10,107,97,.06), 0 4px 16px rgba(10,107,97,.08);
-      --sh-md:     0 2px 8px rgba(10,107,97,.08), 0 8px 32px rgba(10,107,97,.12);
-      --r-sm:      12px;
-      --r:         20px;
-      --r-lg:      28px;
+      --teal:#0A6B61;--teal-m:#0D8577;--teal-l:#12A090;
+      --teal-xl:#7ECEC7;--teal-2xl:#C2E8E5;--teal-3xl:#E8F7F6;
+      --coral:#E05C44;--coral-dim:#FEF0ED;
+      --amber:#D97706;--amber-dim:#FFFBEB;
+      --green:#059669;--green-dim:#ECFDF5;
+      --bg:#F0FAF9;--card:#FFFFFF;
+      --text:#0F2422;--text-2:#3D6460;--muted:#82ABA7;--border:#C8E8E5;
+      --sh-sm:0 1px 4px rgba(10,107,97,.06),0 4px 16px rgba(10,107,97,.08);
+      --sh-md:0 2px 8px rgba(10,107,97,.08),0 8px 32px rgba(10,107,97,.12);
+      --r-sm:12px;--r:20px;--r-lg:28px;
     }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px;-webkit-font-smoothing:antialiased}
 
-    html { scroll-behavior: smooth; }
+    .app-header{background:linear-gradient(160deg,#0A6B61 0%,#0D9488 60%,#0F9E8E 100%);padding:52px 24px 48px;position:relative;overflow:hidden}
+    .app-header::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
+    .app-header::after{content:'';position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04)}
+    .header-inner{position:relative;z-index:1}
+    .header-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:4px 12px;margin-bottom:14px;font-size:.72rem;font-weight:500;color:rgba(255,255,255,.9);letter-spacing:.04em;text-transform:uppercase}
+    .pulse{width:6px;height:6px;border-radius:50%;background:#7FFFD4;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+    .app-header h1{font-family:'Fraunces',serif;font-size:2rem;font-weight:300;color:#fff;letter-spacing:-.02em;line-height:1.15}
+    .app-header h1 span{font-weight:600}
+    .header-sub{color:rgba(255,255,255,.65);font-size:.8rem;margin-top:6px}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding-bottom: 80px;
-      -webkit-font-smoothing: antialiased;
-    }
+    .tab-bar{position:sticky;top:0;z-index:100;background:rgba(10,107,97,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;border-bottom:1px solid rgba(255,255,255,.1)}
+    .tab-btn{flex:1;padding:13px 8px 11px;border:none;background:none;color:rgba(255,255,255,.5);font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.02em;border-bottom:2.5px solid transparent;transition:all .2s}
+    .tab-btn.active{color:#fff;border-bottom-color:#7FFFD4}
 
-    /* ══ HEADER ══════════════════════════════ */
-    .app-header {
-      background: linear-gradient(160deg, #0A6B61 0%, #0D9488 60%, #0F9E8E 100%);
-      padding: 52px 24px 48px;
-      position: relative;
-      overflow: hidden;
-    }
-    .app-header::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.06);
-    }
-    .app-header::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; left: -30px;
-      width: 160px; height: 160px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.04);
-    }
-    .header-inner { position: relative; z-index: 1; }
-    .header-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 99px;
-      padding: 4px 12px; margin-bottom: 14px;
-      font-size: .72rem; font-weight: 500; color: rgba(255,255,255,.9);
-      letter-spacing: .04em; text-transform: uppercase;
-    }
-    .pulse {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #7FFFD4;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100%{opacity:1;transform:scale(1)}
-      50%{opacity:.4;transform:scale(1.6)}
-    }
-    .app-header h1 {
-      font-family: 'Fraunces', serif;
-      font-size: 2rem; font-weight: 300;
-      color: #fff; letter-spacing: -.02em;
-      line-height: 1.15;
-    }
-    .app-header h1 span { font-weight: 600; }
-    .header-sub {
-      color: rgba(255,255,255,.65);
-      font-size: .8rem; margin-top: 6px; font-weight: 400;
-    }
+    .page{display:none;max-width:480px;margin:0 auto;padding:22px 16px 0}
+    .page.active{display:block}
+    .sec{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;padding-left:2px}
 
-    /* ══ TAB BAR ══════════════════════════════ */
-    .tab-bar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,107,97,.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    .tab-btn {
-      flex: 1; padding: 13px 8px 11px;
-      border: none; background: none;
-      color: rgba(255,255,255,.5);
-      font-family: inherit; font-size: .8rem; font-weight: 500;
-      cursor: pointer; letter-spacing: .02em;
-      border-bottom: 2.5px solid transparent;
-      transition: all .2s;
-    }
-    .tab-btn.active { color: #fff; border-bottom-color: #7FFFD4; }
+    .banner{border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px}
+    .banner-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+    .banner-body{flex:1}
+    .banner-title{font-size:.85rem;font-weight:600;margin-bottom:3px}
+    .banner-text{font-size:.78rem;line-height:1.5}
+    .banner.install{background:var(--amber-dim);border:1.5px solid #FDE68A;color:#92400E}
+    .banner.notif{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);color:var(--teal)}
+    .banner.tip{background:#EEF6FF;border:1.5px solid #C7DFFF;color:#1E40AF}
+    .banner.reminder{background:var(--coral);color:#fff;display:none}
+    .banner.reminder.show{display:flex;animation:slideIn .3s ease}
+    @keyframes slideIn{from{transform:translateY(-8px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .banner-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .install-steps{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px}
+    .install-steps li{font-size:.78rem;display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+    .step-num{background:var(--amber);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .btn-ghost{background:rgba(0,0,0,.07);border:none;border-radius:8px;padding:6px 14px;font-family:inherit;font-size:.78rem;cursor:pointer;font-weight:500;transition:background .15s}
+    .btn-primary{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:inherit;font-size:.78rem;cursor:pointer;font-weight:500;transition:background .15s}
+    .btn-primary:hover{background:var(--teal-l)}
+    .btn-white{background:rgba(255,255,255,.25);border:none;border-radius:8px;padding:6px 14px;font-family:inherit;font-size:.78rem;color:#fff;cursor:pointer;font-weight:500}
 
-    /* ══ LAYOUT ══════════════════════════════ */
-    .page { display: none; max-width: 480px; margin: 0 auto; padding: 22px 16px 0; }
-    .page.active { display: block; }
-    .sec {
-      font-size: .68rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .1em;
-      color: var(--muted); margin-bottom: 10px; padding-left: 2px;
-    }
+    .countdown-card{background:var(--card);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--sh-md);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .cd-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .cd-time{font-family:'Fraunces',serif;font-size:2.6rem;color:var(--teal);letter-spacing:-.03em;line-height:1;margin-top:4px}
+    .cd-sub{font-size:.72rem;color:var(--muted);margin-top:5px}
+    .ring-wrap{position:relative;width:64px;height:64px;flex-shrink:0}
+    .ring-wrap svg{transform:rotate(-90deg)}
+    .ring-bg{fill:none;stroke:var(--teal-2xl);stroke-width:5}
+    .ring-fg{fill:none;stroke:url(#ringGrad);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+    .ring-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.3rem}
 
-    /* ══ BANNERS ══════════════════════════════ */
-    .banner {
-      border-radius: var(--r);
-      padding: 16px 18px;
-      margin-bottom: 14px;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .banner-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
-    .banner-body { flex: 1; }
-    .banner-title { font-size: .85rem; font-weight: 600; margin-bottom: 3px; }
-    .banner-text  { font-size: .78rem; line-height: 1.5; }
-    .banner.install { background: var(--amber-dim); border: 1.5px solid #FDE68A; color: #92400E; }
-    .banner.notif   { background: var(--teal-3xl); border: 1.5px solid var(--teal-2xl); color: var(--teal); }
-    .banner.reminder{ background: var(--coral); color: #fff; display: none; }
-    .banner.reminder.show { display: flex; animation: slideIn .3s ease; }
-    @keyframes slideIn { from{transform:translateY(-8px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .reset-timer-btn{display:block;width:100%;background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:var(--r-sm);padding:10px;font-family:inherit;font-size:.8rem;color:var(--teal);cursor:pointer;font-weight:600;transition:background .15s;margin-bottom:18px}
+    .reset-timer-btn:hover{background:var(--teal-2xl)}
 
-    .banner-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-    .install-steps  { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
-    .install-steps li {
-      font-size: .78rem; display: flex; align-items: flex-start; gap: 8px; line-height: 1.45;
-    }
-    .step-num {
-      background: var(--amber); color: #fff; border-radius: 50%;
-      width: 18px; height: 18px; font-size: .68rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
-    }
-    .btn-ghost {
-      background: rgba(0,0,0,.07); border: none; border-radius: 8px;
-      padding: 6px 14px; font-family: inherit; font-size: .78rem;
-      cursor: pointer; font-weight: 500; transition: background .15s;
-    }
-    .btn-primary {
-      background: var(--teal); color: #fff; border: none; border-radius: 8px;
-      padding: 6px 14px; font-family: inherit; font-size: .78rem;
-      cursor: pointer; font-weight: 500; transition: background .15s;
-    }
-    .btn-primary:hover { background: var(--teal-l); }
-    .btn-white {
-      background: rgba(255,255,255,.25); border: none; border-radius: 8px;
-      padding: 6px 14px; font-family: inherit; font-size: .78rem;
-      color: #fff; cursor: pointer; font-weight: 500;
-    }
+    .summary-card{background:linear-gradient(145deg,var(--teal) 0%,var(--teal-m) 100%);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--sh-md);margin-bottom:14px;color:#fff;position:relative;overflow:hidden}
+    .summary-card::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06)}
+    .sum-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;opacity:.7}
+    .sum-grid{display:grid;grid-template-columns:1fr 1px 1fr;margin-top:16px;position:relative;z-index:1}
+    .sum-divider{background:rgba(255,255,255,.2)}
+    .sum-item{padding:0 16px;text-align:center}
+    .sum-item:first-child{padding-left:0}
+    .sum-item:last-child{padding-right:0}
+    .sum-num{font-family:'Fraunces',serif;font-size:2.4rem;letter-spacing:-.03em;line-height:1}
+    .sum-unit{font-size:.7rem;font-weight:500;opacity:.6;margin-top:4px}
+    .ratio-wrap{margin-top:18px;position:relative;z-index:1}
+    .ratio-track{background:rgba(255,255,255,.18);border-radius:99px;height:7px;overflow:hidden}
+    .ratio-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7FFFD4,#4ADE80);transition:width .7s cubic-bezier(.4,0,.2,1)}
+    .ratio-labels{display:flex;justify-content:space-between;font-size:.68rem;opacity:.65;margin-top:6px}
 
-    /* ══ COUNTDOWN CARD ══════════════════════ */
-    .countdown-card {
-      background: var(--card);
-      border-radius: var(--r-lg);
-      padding: 22px 24px;
-      box-shadow: var(--sh-md);
-      margin-bottom: 18px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px;
-    }
-    .cd-label  { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-    .cd-time   { font-family: 'Fraunces', serif; font-size: 2.6rem; color: var(--teal); letter-spacing: -.03em; line-height: 1; margin-top: 4px; }
-    .cd-sub    { font-size: .72rem; color: var(--muted); margin-top: 5px; }
-    .ring-wrap { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
-    .ring-wrap svg { transform: rotate(-90deg); }
-    .ring-bg   { fill: none; stroke: var(--teal-2xl); stroke-width: 5; }
-    .ring-fg   { fill: none; stroke: url(#ringGrad); stroke-width: 5; stroke-linecap: round;
-                 stroke-dasharray: 170; stroke-dashoffset: 170; transition: stroke-dashoffset 1s linear; }
-    .ring-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1.3rem; }
+    .alert-strip{display:none;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:14px;font-size:.82rem;gap:10px;align-items:flex-start}
+    .alert-strip.show{display:flex}
+    .alert-strip.warn{background:var(--coral-dim);color:#B91C1C}
+    .alert-strip.ok{background:var(--green-dim);color:var(--green)}
 
-    /* ══ SUMMARY CARD ══════════════════════ */
-    .summary-card {
-      background: linear-gradient(145deg, var(--teal) 0%, var(--teal-m) 100%);
-      border-radius: var(--r-lg);
-      padding: 22px 24px;
-      box-shadow: var(--sh-md);
-      margin-bottom: 14px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-    .summary-card::before {
-      content: ''; position: absolute;
-      top: -30px; right: -30px;
-      width: 140px; height: 140px; border-radius: 50%;
-      background: rgba(255,255,255,.06);
-    }
-    .sum-label { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; opacity: .7; }
-    .sum-grid  { display: grid; grid-template-columns: 1fr 1px 1fr; margin-top: 16px; position: relative; z-index: 1; }
-    .sum-divider { background: rgba(255,255,255,.2); }
-    .sum-item  { padding: 0 16px; text-align: center; }
-    .sum-item:first-child { padding-left: 0; }
-    .sum-item:last-child  { padding-right: 0; }
-    .sum-num   { font-family: 'Fraunces', serif; font-size: 2.4rem; letter-spacing: -.03em; line-height: 1; }
-    .sum-unit  { font-size: .7rem; font-weight: 500; opacity: .6; margin-top: 4px; }
+    .log-card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh-sm);margin-bottom:14px}
+    .log-card-hdr{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .log-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0}
+    .log-icon.fluid{background:linear-gradient(135deg,#DBEAFE,#BFDBFE)}
+    .log-icon.urine{background:linear-gradient(135deg,#FEF9C3,#FDE68A)}
+    .log-card-title{font-size:1rem;font-weight:600;color:var(--text)}
+    .log-card-sub{font-size:.74rem;color:var(--muted);margin-top:2px}
+    .log-card-sub strong{color:var(--teal);font-weight:600}
+    .input-row{display:flex;gap:8px}
+    .amount-input{flex:1;border:2px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;font-size:1.05rem;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s}
+    .amount-input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(10,107,97,.1)}
+    .unit-tag{background:var(--teal-3xl);border-radius:var(--r-sm);padding:12px 14px;font-size:.8rem;color:var(--teal);font-weight:700;display:flex;align-items:center}
+    .log-btn{background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:12px 20px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s,box-shadow .2s;box-shadow:0 2px 8px rgba(10,107,97,.3)}
+    .log-btn:hover{background:var(--teal-l);box-shadow:0 4px 12px rgba(10,107,97,.4)}
+    .log-btn:active{transform:scale(.96)}
+    .quick-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+    .quick-btn{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:99px;padding:6px 13px;font-size:.74rem;color:var(--teal);font-family:inherit;cursor:pointer;font-weight:600;transition:all .15s}
+    .quick-btn:hover{background:var(--teal-2xl)}
+    .mini-log{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+    .mini-item{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.82rem}
+    .mini-item+.mini-item{border-top:1px solid var(--teal-3xl)}
+    .mini-time{color:var(--muted);font-size:.75rem}
+    .mini-val{font-weight:600;color:var(--text)}
+    .mini-del{background:none;border:none;cursor:pointer;color:#CBD5E1;font-size:.85rem;padding:2px 4px;border-radius:6px;transition:color .15s,background .15s}
+    .mini-del:hover{color:var(--coral);background:var(--coral-dim)}
+    .mini-empty{color:var(--muted);font-size:.8rem;text-align:center;padding:10px 0}
 
-    .ratio-wrap { margin-top: 18px; position: relative; z-index: 1; }
-    .ratio-track {
-      background: rgba(255,255,255,.18); border-radius: 99px;
-      height: 7px; overflow: hidden;
-    }
-    .ratio-fill {
-      height: 100%; border-radius: 99px;
-      background: linear-gradient(90deg, #7FFFD4, #4ADE80);
-      transition: width .7s cubic-bezier(.4,0,.2,1);
-    }
-    .ratio-labels {
-      display: flex; justify-content: space-between;
-      font-size: .68rem; opacity: .65; margin-top: 6px;
-    }
+    .reset-btn{display:block;width:100%;background:none;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:13px;font-family:inherit;font-size:.84rem;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s}
+    .reset-btn:hover{border-color:var(--coral);color:var(--coral)}
 
-    /* ══ ALERT STRIP ══════════════════════ */
-    .alert-strip {
-      display: none; border-radius: var(--r-sm);
-      padding: 12px 16px; margin-bottom: 14px;
-      font-size: .82rem; gap: 10px; align-items: flex-start;
-    }
-    .alert-strip.show { display: flex; }
-    .alert-strip.warn { background: var(--coral-dim); color: #B91C1C; }
-    .alert-strip.ok   { background: var(--green-dim); color: var(--green); }
+    .date-nav-card{background:var(--card);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--sh-sm);margin-bottom:16px}
+    .date-nav-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+    .date-nav-row{display:flex;align-items:center;gap:8px}
+    .date-arrow{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:10px;width:38px;height:38px;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--teal);transition:background .15s;flex-shrink:0}
+    .date-arrow:hover{background:var(--teal-2xl)}
+    .date-picker{flex:1;border:2px solid var(--border);border-radius:10px;padding:9px 12px;font-family:inherit;font-size:.9rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s}
+    .date-picker:focus{border-color:var(--teal)}
+    .today-btn{background:var(--teal);color:#fff;border:none;border-radius:10px;padding:0 14px;height:38px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;flex-shrink:0}
 
-    /* ══ LOG CARDS ══════════════════════ */
-    .log-card {
-      background: var(--card);
-      border-radius: var(--r-lg);
-      padding: 22px;
-      box-shadow: var(--sh-sm);
-      margin-bottom: 14px;
-    }
-    .log-card-hdr {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
-    }
-    .log-icon {
-      width: 46px; height: 46px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.35rem; flex-shrink: 0;
-    }
-    .log-icon.fluid { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); }
-    .log-icon.urine { background: linear-gradient(135deg, #FEF9C3, #FDE68A); }
-    .log-card-title { font-size: 1rem; font-weight: 600; color: var(--text); }
-    .log-card-sub   { font-size: .74rem; color: var(--muted); margin-top: 2px; }
-    .log-card-sub strong { color: var(--teal); font-weight: 600; }
+    .day-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+    .stat-card{background:var(--card);border-radius:var(--r);padding:16px 12px;box-shadow:var(--sh-sm);text-align:center}
+    .stat-num{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--teal);letter-spacing:-.02em}
+    .stat-lbl{font-size:.67rem;color:var(--muted);margin-top:3px;font-weight:500}
 
-    .input-row { display: flex; gap: 8px; }
-    .amount-input {
-      flex: 1; border: 2px solid var(--border); border-radius: var(--r-sm);
-      padding: 12px 14px; font-size: 1.05rem; font-family: inherit;
-      color: var(--text); background: var(--bg); outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .amount-input:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 4px rgba(10,107,97,.1);
-    }
-    .unit-tag {
-      background: var(--teal-3xl); border-radius: var(--r-sm);
-      padding: 12px 14px; font-size: .8rem; color: var(--teal);
-      font-weight: 700; display: flex; align-items: center;
-    }
-    .log-btn {
-      background: var(--teal); color: #fff; border: none;
-      border-radius: var(--r-sm); padding: 12px 20px;
-      font-family: inherit; font-size: .9rem; font-weight: 600;
-      cursor: pointer; transition: background .2s, transform .1s, box-shadow .2s;
-      box-shadow: 0 2px 8px rgba(10,107,97,.3);
-    }
-    .log-btn:hover  { background: var(--teal-l); box-shadow: 0 4px 12px rgba(10,107,97,.4); }
-    .log-btn:active { transform: scale(.96); }
-
-    .quick-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
-    .quick-btn {
-      background: var(--teal-3xl); border: 1.5px solid var(--teal-2xl);
-      border-radius: 99px; padding: 6px 13px;
-      font-size: .74rem; color: var(--teal); font-family: inherit;
-      cursor: pointer; font-weight: 600; transition: all .15s;
-    }
-    .quick-btn:hover { background: var(--teal-2xl); }
-
-    /* mini history inside log card */
-    .mini-log { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
-    .mini-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 5px 0; font-size: .82rem;
-    }
-    .mini-item + .mini-item { border-top: 1px solid var(--teal-3xl); }
-    .mini-time { color: var(--muted); font-size: .75rem; }
-    .mini-val  { font-weight: 600; color: var(--text); }
-    .mini-del  {
-      background: none; border: none; cursor: pointer;
-      color: #CBD5E1; font-size: .85rem; padding: 2px 4px;
-      border-radius: 6px; transition: color .15s, background .15s;
-    }
-    .mini-del:hover { color: var(--coral); background: var(--coral-dim); }
-    .mini-empty { color: var(--muted); font-size: .8rem; text-align: center; padding: 10px 0; }
-
-    .reset-btn {
-      display: block; width: 100%; background: none;
-      border: 1.5px solid var(--border); border-radius: var(--r-sm);
-      padding: 13px; font-family: inherit; font-size: .84rem;
-      color: var(--muted); cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .reset-btn:hover { border-color: var(--coral); color: var(--coral); }
-
-    /* ══ TABLE PAGE ══════════════════════ */
-    .date-nav-card {
-      background: var(--card);
-      border-radius: var(--r-lg);
-      padding: 18px 20px;
-      box-shadow: var(--sh-sm);
-      margin-bottom: 16px;
-    }
-    .date-nav-label { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 10px; }
-    .date-nav-row { display: flex; align-items: center; gap: 8px; }
-    .date-arrow {
-      background: var(--teal-3xl); border: 1.5px solid var(--teal-2xl);
-      border-radius: 10px; width: 38px; height: 38px; font-size: .95rem;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--teal); transition: background .15s; flex-shrink: 0;
-    }
-    .date-arrow:hover { background: var(--teal-2xl); }
-    .date-picker {
-      flex: 1; border: 2px solid var(--border); border-radius: 10px;
-      padding: 9px 12px; font-family: inherit; font-size: .9rem;
-      color: var(--text); background: var(--bg); outline: none;
-      transition: border-color .2s;
-    }
-    .date-picker:focus { border-color: var(--teal); }
-
-    .day-stats {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 10px; margin-bottom: 16px;
-    }
-    .stat-card {
-      background: var(--card); border-radius: var(--r);
-      padding: 16px 12px; box-shadow: var(--sh-sm); text-align: center;
-    }
-    .stat-num { font-family: 'Fraunces', serif; font-size: 1.7rem; color: var(--teal); letter-spacing: -.02em; }
-    .stat-lbl { font-size: .67rem; color: var(--muted); margin-top: 3px; font-weight: 500; }
-
-    .table-card {
-      background: var(--card); border-radius: var(--r-lg);
-      box-shadow: var(--sh-sm); overflow: hidden; margin-bottom: 14px;
-    }
-    table { width: 100%; border-collapse: collapse; }
-    thead { background: linear-gradient(90deg, var(--teal), var(--teal-m)); }
-    thead th {
-      color: rgba(255,255,255,.85); font-size: .68rem;
-      text-transform: uppercase; letter-spacing: .08em;
-      padding: 12px 16px; text-align: left; font-weight: 600;
-    }
-    tbody tr { border-bottom: 1px solid var(--teal-3xl); transition: background .1s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--bg); }
-    tbody td { padding: 12px 16px; font-size: .84rem; }
-    .td-time { color: var(--muted); font-size: .76rem; font-weight: 500; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 5px;
-      border-radius: 99px; padding: 4px 10px;
-      font-size: .72rem; font-weight: 600;
-    }
-    .pill.fluid { background: #DBEAFE; color: #1D4ED8; }
-    .pill.urine { background: #FEF9C3; color: #A16207; }
-    .td-ml { font-weight: 700; color: var(--text); }
-    .td-del {
-      background: none; border: none; cursor: pointer; color: #CBD5E1;
-      font-size: .85rem; padding: 4px 6px; border-radius: 6px;
-      transition: color .15s, background .15s;
-    }
-    .td-del:hover { color: var(--coral); background: var(--coral-dim); }
-    .table-empty {
-      text-align: center; padding: 48px 20px;
-      color: var(--muted); font-size: .88rem;
-    }
-    .table-empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
-
-    .export-btn {
-      width: 100%; background: var(--teal-3xl);
-      border: 1.5px solid var(--teal-2xl); border-radius: var(--r-sm);
-      padding: 13px; font-family: inherit; font-size: .85rem;
-      color: var(--teal); cursor: pointer; font-weight: 600;
-      transition: background .15s; display: flex; align-items: center;
-      justify-content: center; gap: 8px;
-    }
-    .export-btn:hover { background: var(--teal-2xl); }
+    .table-card{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh-sm);overflow:hidden;margin-bottom:14px}
+    table{width:100%;border-collapse:collapse}
+    thead{background:linear-gradient(90deg,var(--teal),var(--teal-m))}
+    thead th{color:rgba(255,255,255,.85);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:12px 16px;text-align:left;font-weight:600}
+    tbody tr{border-bottom:1px solid var(--teal-3xl);transition:background .1s}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:hover{background:var(--bg)}
+    tbody td{padding:12px 16px;font-size:.84rem}
+    .td-time{color:var(--muted);font-size:.76rem;font-weight:500}
+    .pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:4px 10px;font-size:.72rem;font-weight:600}
+    .pill.fluid{background:#DBEAFE;color:#1D4ED8}
+    .pill.urine{background:#FEF9C3;color:#A16207}
+    .td-ml{font-weight:700;color:var(--text)}
+    .td-del{background:none;border:none;cursor:pointer;color:#CBD5E1;font-size:.85rem;padding:4px 6px;border-radius:6px;transition:color .15s,background .15s}
+    .td-del:hover{color:var(--coral);background:var(--coral-dim)}
+    .table-empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:.88rem}
+    .table-empty-icon{font-size:2.5rem;margin-bottom:10px}
+    .export-btn{width:100%;background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:var(--r-sm);padding:13px;font-family:inherit;font-size:.85rem;color:var(--teal);cursor:pointer;font-weight:600;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+    .export-btn:hover{background:var(--teal-2xl)}
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="app-header">
   <div class="header-inner">
     <div class="header-chip"><span class="pulse"></span>Active Monitoring</div>
@@ -427,68 +177,65 @@
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('log')">📋 Log</button>
   <button class="tab-btn" onclick="switchTab('table')">📊 History</button>
 </div>
 
-<!-- ═══ LOG PAGE ═══════════════════════════════ -->
+<!-- ════ LOG PAGE ════ -->
 <div class="page active" id="page-log">
 
-  <!-- iOS install -->
   <div class="banner install" id="install-banner">
     <div class="banner-icon">📲</div>
     <div class="banner-body">
       <div class="banner-title">Install for notifications</div>
       <ul class="install-steps">
-        <li><span class="step-num">1</span>Tap the <strong>Share</strong> button (□↑) in Safari</li>
+        <li><span class="step-num">1</span>Tap the <strong>Share</strong> button in Safari/Chrome</li>
         <li><span class="step-num">2</span>Tap <strong>"Add to Home Screen"</strong></li>
-        <li><span class="step-num">3</span>Open app from Home Screen, then tap Enable</li>
+        <li><span class="step-num">3</span>Open it from the Home Screen, then tap Enable</li>
       </ul>
-      <div class="banner-actions">
-        <button class="btn-ghost" onclick="dismissInstall()">Done ✓</button>
-      </div>
+      <div class="banner-actions"><button class="btn-ghost" onclick="dismissInstall()">Done ✓</button></div>
     </div>
   </div>
 
-  <!-- notif permission -->
   <div class="banner notif" id="notif-banner">
     <div class="banner-icon">🔔</div>
     <div class="banner-body">
       <div class="banner-title">Enable hourly reminders</div>
-      <div class="banner-text">Get notified every hour to log fluid &amp; urine output.</div>
-      <div class="banner-actions">
-        <button class="btn-primary" onclick="requestNotif()">Enable notifications</button>
-      </div>
+      <div class="banner-text">Get notified each hour to log fluid &amp; urine.</div>
+      <div class="banner-actions"><button class="btn-primary" onclick="requestNotif()">Enable notifications</button></div>
     </div>
   </div>
 
-  <!-- reminder flash -->
+  <div class="banner tip" id="alarm-tip">
+    <div class="banner-icon">⏰</div>
+    <div class="banner-body">
+      <div class="banner-title">Set a backup alarm</div>
+      <div class="banner-text">Phone notifications can be paused by the OS when the app is closed. For guaranteed hourly reminders, also set a repeating hourly alarm in your phone's Clock app.</div>
+      <div class="banner-actions"><button class="btn-ghost" onclick="dismissTip()">Got it ✓</button></div>
+    </div>
+  </div>
+
   <div class="banner reminder" id="reminder-banner">
     <div class="banner-icon">⏰</div>
     <div class="banner-body">
       <div class="banner-title">Time to log!</div>
-      <div class="banner-text">Record your fluid intake and urine output now.</div>
+      <div class="banner-text">Record fluid intake and urine output now.</div>
     </div>
     <button class="btn-white" onclick="dismissReminder()">Got it</button>
   </div>
 
-  <!-- countdown -->
   <div class="countdown-card">
     <div>
       <div class="cd-label">Next reminder in</div>
       <div class="cd-time" id="cd-display">60:00</div>
-      <div class="cd-sub" id="cd-sub">0 reminders sent today</div>
+      <div class="cd-sub" id="cd-sub">0 reminders today</div>
     </div>
     <div class="ring-wrap">
       <svg viewBox="0 0 64 64" width="64" height="64">
-        <defs>
-          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#7FFFD4"/>
-            <stop offset="100%" stop-color="#0D9488"/>
-          </linearGradient>
-        </defs>
+        <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7FFFD4"/><stop offset="100%" stop-color="#0D9488"/>
+        </linearGradient></defs>
         <circle class="ring-bg" cx="32" cy="32" r="27"/>
         <circle class="ring-fg" id="ring-fg" cx="32" cy="32" r="27"/>
       </svg>
@@ -496,46 +243,32 @@
     </div>
   </div>
 
-  <!-- summary -->
+  <button class="reset-timer-btn" onclick="resetTimer()">🔄 Restart 1-hour timer</button>
+
   <div class="sec">Today's overview</div>
   <div class="summary-card">
     <div class="sum-label">Total logged today</div>
     <div class="sum-grid">
-      <div class="sum-item">
-        <div class="sum-num" id="tot-fluid">0</div>
-        <div class="sum-unit">ml fluid in</div>
-      </div>
+      <div class="sum-item"><div class="sum-num" id="tot-fluid">0</div><div class="sum-unit">ml fluid in</div></div>
       <div class="sum-divider"></div>
-      <div class="sum-item">
-        <div class="sum-num" id="tot-urine">0</div>
-        <div class="sum-unit">ml urine out</div>
-      </div>
+      <div class="sum-item"><div class="sum-num" id="tot-urine">0</div><div class="sum-unit">ml urine out</div></div>
     </div>
     <div class="ratio-wrap">
-      <div class="ratio-track">
-        <div class="ratio-fill" id="ratio-bar" style="width:0%"></div>
-      </div>
-      <div class="ratio-labels">
-        <span id="ratio-lbl">Log entries to see ratio</span>
-        <span>Target ≥ 50%</span>
-      </div>
+      <div class="ratio-track"><div class="ratio-fill" id="ratio-bar" style="width:0%"></div></div>
+      <div class="ratio-labels"><span id="ratio-lbl">Log entries to see ratio</span><span>Target ≥ 50%</span></div>
     </div>
   </div>
 
   <div class="alert-strip" id="alert-strip"></div>
 
-  <!-- fluid -->
   <div class="sec">Fluid intake</div>
   <div class="log-card">
     <div class="log-card-hdr">
       <div class="log-icon fluid">💧</div>
-      <div>
-        <div class="log-card-title">Fluids Consumed</div>
-        <div class="log-card-sub">This hour: <strong id="hr-fluid">0 ml</strong></div>
-      </div>
+      <div><div class="log-card-title">Fluids Consumed</div><div class="log-card-sub">This hour: <strong id="hr-fluid">0 ml</strong></div></div>
     </div>
     <div class="input-row">
-      <input class="amount-input" id="fluid-input" type="number" min="0" placeholder="Amount…"/>
+      <input class="amount-input" id="fluid-input" type="number" min="0" inputmode="numeric" placeholder="Amount…"/>
       <div class="unit-tag">ml</div>
       <button class="log-btn" onclick="logEntry('fluid')">Log</button>
     </div>
@@ -548,18 +281,14 @@
     <div class="mini-log" id="fluid-mini"></div>
   </div>
 
-  <!-- urine -->
   <div class="sec">Urine output</div>
   <div class="log-card">
     <div class="log-card-hdr">
       <div class="log-icon urine">🌡️</div>
-      <div>
-        <div class="log-card-title">Urine Passed</div>
-        <div class="log-card-sub">This hour: <strong id="hr-urine">0 ml</strong></div>
-      </div>
+      <div><div class="log-card-title">Urine Passed</div><div class="log-card-sub">This hour: <strong id="hr-urine">0 ml</strong></div></div>
     </div>
     <div class="input-row">
-      <input class="amount-input" id="urine-input" type="number" min="0" placeholder="Amount…"/>
+      <input class="amount-input" id="urine-input" type="number" min="0" inputmode="numeric" placeholder="Amount…"/>
       <div class="unit-tag">ml</div>
       <button class="log-btn" onclick="logEntry('urine')">Log</button>
     </div>
@@ -572,263 +301,320 @@
     <div class="mini-log" id="urine-mini"></div>
   </div>
 
-  <button class="reset-btn" onclick="confirmReset()">🗑&nbsp; Reset today's data</button>
-
+  <button class="reset-btn" onclick="confirmReset()">🗑&nbsp; Clear today's entries</button>
 </div>
 
-<!-- ═══ TABLE PAGE ═══════════════════════════════ -->
+<!-- ════ TABLE PAGE ════ -->
 <div class="page" id="page-table">
-
   <div class="date-nav-card">
     <div class="date-nav-label">Select date</div>
     <div class="date-nav-row">
       <button class="date-arrow" onclick="shiftDate(-1)">◀</button>
       <input class="date-picker" type="date" id="table-date" onchange="renderTable()"/>
       <button class="date-arrow" onclick="shiftDate(1)">▶</button>
+      <button class="today-btn" onclick="goToday()">Today</button>
     </div>
   </div>
 
   <div class="day-stats">
-    <div class="stat-card">
-      <div class="stat-num" id="ts-fluid">0</div>
-      <div class="stat-lbl">ml fluid</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="ts-urine">0</div>
-      <div class="stat-lbl">ml urine</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="ts-ratio">—</div>
-      <div class="stat-lbl">ratio</div>
-    </div>
+    <div class="stat-card"><div class="stat-num" id="ts-fluid">0</div><div class="stat-lbl">ml fluid</div></div>
+    <div class="stat-card"><div class="stat-num" id="ts-urine">0</div><div class="stat-lbl">ml urine</div></div>
+    <div class="stat-card"><div class="stat-num" id="ts-ratio">—</div><div class="stat-lbl">ratio</div></div>
   </div>
 
   <div class="table-card">
     <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th></th>
-        </tr>
-      </thead>
+      <thead><tr><th>Time</th><th>Type</th><th>Amount</th><th></th></tr></thead>
       <tbody id="table-body"></tbody>
     </table>
     <div class="table-empty" id="table-empty" style="display:none">
-      <div class="table-empty-icon">📭</div>
-      No entries for this date.
+      <div class="table-empty-icon">📭</div>No entries for this date.
     </div>
   </div>
 
-  <button class="export-btn" onclick="exportCSV()">⬇&nbsp; Export CSV</button>
-
+  <button class="export-btn" onclick="exportCSV()">⬇&nbsp; Export this day (CSV)</button>
+  <button class="export-btn" onclick="exportAll()">⬇&nbsp; Export ALL data (CSV)</button>
 </div>
 
 <script>
-// ══ STATE ═══════════════════════════════════
-const SK = 'recovery_v3';
-function load() {
-  try { const r = localStorage.getItem(SK); if(r) return JSON.parse(r); } catch(e){}
-  return { entries:[], reminderCount:0, nextAlarmAt: Date.now()+3600000 };
-}
-function save() { localStorage.setItem(SK, JSON.stringify(state)); }
-let state = load();
-function newId() { return Date.now().toString(36)+Math.random().toString(36).slice(2,5); }
+'use strict';
+// ════════ CONSTANTS ════════
+var HOUR = 3600000; // 1 hour in ms.  ← change to 100000 (100s) to TEST, then change back.
+var SK = 'recovery_v3';
 
-// ══ TABS ════════════════════════════════════
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['log','table'][i]===tab));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+// ════════ STATE / STORAGE ════════
+function load(){
+  try{
+    var raw = localStorage.getItem(SK);
+    if(raw){
+      var s = JSON.parse(raw);
+      if(!Array.isArray(s.entries)) s.entries = [];
+      if(typeof s.reminderCount !== 'number') s.reminderCount = 0;
+      if(typeof s.reminderDay !== 'string') s.reminderDay = '';
+      if(typeof s.nextAlarmAt !== 'number') s.nextAlarmAt = Date.now() + HOUR;
+      return s;
+    }
+  }catch(e){ console.warn('load failed', e); }
+  return { entries:[], reminderCount:0, reminderDay:'', nextAlarmAt: Date.now()+HOUR };
+}
+function save(){
+  try{ localStorage.setItem(SK, JSON.stringify(state)); }
+  catch(e){ console.error('SAVE FAILED', e); }
+}
+var state = load();
+function newId(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+// ════════ LOCAL DATE HELPERS (fixes UTC bug) ════════
+function localKey(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function todayKey(){ return localKey(new Date()); }
+function dateKey(ts){ return localKey(new Date(ts)); }
+function fmt(ts){ var d=new Date(ts); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+
+// ════════ TABS ════════
+function switchTab(tab){
+  var names=['log','table'];
+  var btns=document.querySelectorAll('.tab-btn');
+  btns.forEach(function(b,i){ b.classList.toggle('active', names[i]===tab); });
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('page-'+tab).classList.add('active');
   if(tab==='table') renderTable();
 }
 
-// ══ SW + NOTIFICATIONS ════════════════════
-let swReg=null;
-async function registerSW() {
-  if(!('serviceWorker' in navigator)) return;
-  try {
-    swReg = await navigator.serviceWorker.register('/sw.js');
-    navigator.serviceWorker.addEventListener('message', e=>{
-      if(e.data?.type==='ALARM_FIRED'){
-        state.nextAlarmAt=e.data.nextAlarmAt;
-        state.reminderCount++;
-        save(); showReminderBanner();
-      }
-    });
-  } catch(err){ console.warn('SW failed:',err); }
+// ════════ SERVICE WORKER ════════
+var swReg = null;
+function registerSW(){
+  if(!('serviceWorker' in navigator)) return Promise.resolve();
+  return navigator.serviceWorker.register('/sw.js')
+    .then(function(){ return navigator.serviceWorker.ready; })
+    .then(function(reg){ swReg = reg; console.log('[APP] SW ready'); })
+    .catch(function(err){ console.warn('[APP] SW failed', err); });
 }
-async function requestNotif() {
-  if(!('Notification' in window)){ alert('Not supported.'); return; }
-  const p = await Notification.requestPermission();
-  if(p==='granted'){ document.getElementById('notif-banner').style.display='none'; scheduleAlarm(); }
+
+// ════════ NOTIFICATIONS ════════
+function requestNotif(){
+  if(!('Notification' in window)){ alert('Notifications are not supported in this browser.'); return; }
+  Notification.requestPermission().then(function(p){
+    console.log('[APP] permission:', p);
+    if(p==='granted'){
+      document.getElementById('notif-banner').style.display='none';
+      showNotification(); // immediate test so she knows it works
+    } else {
+      alert('Notifications are blocked. Enable them in your browser/site settings, then reload.');
+    }
+  });
 }
-function scheduleAlarm() {
-  if(!swReg?.active) return;
-  swReg.active.postMessage({ type:'SCHEDULE_ALARM', nextAlarmAt: state.nextAlarmAt });
-}
-function showReminderBanner() {
-  document.getElementById('reminder-banner').classList.add('show');
-  if(Notification.permission==='granted'){
-    new Notification('💧 Recovery Reminder',{body:'Time to log your fluid intake and urine output!',requireInteraction:true});
+function showNotification(){
+  if(typeof Notification==='undefined' || Notification.permission!=='granted') return;
+  // Mobile Chrome REQUIRES the service worker registration to show notifications.
+  if(swReg && swReg.showNotification){
+    swReg.showNotification('💧 Recovery Reminder', {
+      body:'Time to log fluid intake and urine output.',
+      requireInteraction:true, tag:'hourly-reminder', renotify:true,
+      vibrate:[200,100,200]
+    }).catch(function(e){ console.error('notif error', e); });
+  } else {
+    try{ new Notification('💧 Recovery Reminder', { body:'Time to log fluid intake and urine output.' }); }
+    catch(e){ console.error('notif fallback error', e); }
   }
+}
+function fireReminder(){
+  // reset daily counter if the day rolled over
+  var tk = todayKey();
+  if(state.reminderDay !== tk){ state.reminderDay = tk; state.reminderCount = 0; }
+  state.reminderCount++;
+  save();
+  document.getElementById('reminder-banner').classList.add('show');
+  showNotification();
 }
 function dismissReminder(){ document.getElementById('reminder-banner').classList.remove('show'); }
 
-// ══ INSTALL BANNER ════════════════════════
-function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone; }
-function isIOS(){ return /iphone|ipad|ipod/i.test(navigator.userAgent); }
-function dismissInstall(){ document.getElementById('install-banner').style.display='none'; localStorage.setItem('install_dismissed','1'); }
-function initInstallBanner(){
-  if(!isIOS()||isStandalone()||localStorage.getItem('install_dismissed'))
-    document.getElementById('install-banner').style.display='none';
-}
-function initNotifBanner(){
-  const b=document.getElementById('notif-banner');
-  if(typeof Notification==='undefined'||Notification.permission==='granted') b.style.display='none';
-}
-
-// ══ COUNTDOWN ════════════════════════════
-setInterval(tick,1000);
-function tick(){
-  let rem=state.nextAlarmAt-Date.now();
-  if(rem<=0){
-    state.nextAlarmAt=Date.now()+3600000;
-    state.reminderCount++;
-    save(); scheduleAlarm(); showReminderBanner(); rem=3600000;
+// ════════ ALARM TIMER + CATCH-UP ════════
+function checkAlarm(){
+  var now = Date.now();
+  if(now >= state.nextAlarmAt){
+    fireReminder();
+    // collapse any missed hours into one, schedule next on the hour from now
+    state.nextAlarmAt = now + HOUR;
+    save();
   }
-  const secs=Math.ceil(rem/1000);
-  document.getElementById('cd-display').textContent=
-    String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
-  document.getElementById('cd-sub').textContent=
-    `${state.reminderCount} reminder${state.reminderCount!==1?'s':''} sent today`;
-  const pct=Math.max(0,Math.min(1,(3600-secs)/3600));
-  const circ=2*Math.PI*27; // r=27
-  document.getElementById('ring-fg').style.strokeDasharray=circ;
-  document.getElementById('ring-fg').style.strokeDashoffset=circ-(circ*pct);
+}
+function tick(){
+  checkAlarm();
+  var rem = Math.max(0, state.nextAlarmAt - Date.now());
+  var secs = Math.ceil(rem/1000);
+  var mm = String(Math.floor(secs/60)).padStart(2,'0');
+  var ss = String(secs%60).padStart(2,'0');
+  document.getElementById('cd-display').textContent = mm+':'+ss;
+  var tk = todayKey();
+  var count = (state.reminderDay===tk) ? state.reminderCount : 0;
+  document.getElementById('cd-sub').textContent = count+' reminder'+(count!==1?'s':'')+' today';
+  var pct = Math.max(0, Math.min(1, (HOUR-rem)/HOUR));
+  var circ = 2*Math.PI*27;
+  var ring = document.getElementById('ring-fg');
+  ring.style.strokeDasharray = circ;
+  ring.style.strokeDashoffset = circ - (circ*pct);
+}
+function resetTimer(){
+  state.nextAlarmAt = Date.now() + HOUR;
+  save(); tick();
+  console.log('[APP] timer restarted');
 }
 
-// ══ LOGGING ═══════════════════════════════
-function logEntry(type){
-  const inp=document.getElementById(`${type}-input`);
-  const val=parseFloat(inp.value);
-  if(!val||val<=0){inp.focus();return;}
-  addEntry(type,val); inp.value='';
+// ════════ INSTALL / TIP BANNERS ════════
+function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true; }
+function dismissInstall(){ document.getElementById('install-banner').style.display='none'; localStorage.setItem('install_dismissed','1'); }
+function dismissTip(){ document.getElementById('alarm-tip').style.display='none'; localStorage.setItem('tip_dismissed','1'); }
+function initBanners(){
+  if(isStandalone() || localStorage.getItem('install_dismissed'))
+    document.getElementById('install-banner').style.display='none';
+  if(localStorage.getItem('tip_dismissed'))
+    document.getElementById('alarm-tip').style.display='none';
+  var nb = document.getElementById('notif-banner');
+  if(typeof Notification==='undefined' || Notification.permission==='granted') nb.style.display='none';
 }
-function quickLog(type,ml){ addEntry(type,ml); }
-function addEntry(type,ml){
-  state.entries.push({id:newId(),type,ml,ts:Date.now()});
+
+// ════════ LOGGING ════════
+function logEntry(type){
+  var inp = document.getElementById(type+'-input');
+  var val = parseFloat(inp.value);
+  if(!val || val<=0){ inp.focus(); return; }
+  addEntry(type, val);
+  inp.value='';
+}
+function quickLog(type, ml){ addEntry(type, ml); }
+function addEntry(type, ml){
+  state.entries.push({ id:newId(), type:type, ml:ml, ts:Date.now() });
   save(); renderLog();
 }
 function deleteEntry(id){
-  state.entries=state.entries.filter(e=>e.id!==id);
-  save(); renderLog(); renderTable();
+  state.entries = state.entries.filter(function(e){ return e.id!==id; });
+  save(); renderLog();
+  if(document.getElementById('page-table').classList.contains('active')) renderTable();
 }
 
-// ══ HELPERS ═══════════════════════════════
-function todayKey(){ return new Date().toISOString().slice(0,10); }
-function dateKey(ts){ return new Date(ts).toISOString().slice(0,10); }
-function fmt(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
-function todayEntries(){ const k=todayKey(); return state.entries.filter(e=>dateKey(e.ts)===k); }
-function sumHour(entries){ const c=Date.now()-3600000; return entries.filter(e=>e.ts>=c).reduce((s,e)=>s+e.ml,0); }
-function sum(entries){ return entries.reduce((s,e)=>s+e.ml,0); }
+// ════════ AGGREGATION ════════
+function sumAll(list){ return list.reduce(function(s,e){ return s+e.ml; },0); }
+function sumHour(list){ var c=Date.now()-HOUR; return list.filter(function(e){ return e.ts>=c; }).reduce(function(s,e){ return s+e.ml; },0); }
+function entriesForDate(key){ return state.entries.filter(function(e){ return dateKey(e.ts)===key; }); }
 
-// ══ RENDER LOG ════════════════════════════
+// ════════ RENDER: LOG ════════
 function renderLog(){
-  const today=todayEntries();
-  const fluid=today.filter(e=>e.type==='fluid');
-  const urine=today.filter(e=>e.type==='urine');
-  const tF=sum(fluid),tU=sum(urine),hF=sumHour(fluid),hU=sumHour(urine);
+  var today = entriesForDate(todayKey());
+  var fluid = today.filter(function(e){ return e.type==='fluid'; });
+  var urine = today.filter(function(e){ return e.type==='urine'; });
+  var tF=sumAll(fluid), tU=sumAll(urine), hF=sumHour(fluid), hU=sumHour(urine);
 
   document.getElementById('tot-fluid').textContent=tF;
   document.getElementById('tot-urine').textContent=tU;
   document.getElementById('hr-fluid').textContent=hF+' ml';
   document.getElementById('hr-urine').textContent=hU+' ml';
 
-  const ratio=tF>0?tU/tF:0;
-  const pct=Math.min(100,Math.round(ratio*100));
+  var ratio = tF>0 ? tU/tF : 0;
+  var pct = Math.min(100, Math.round(ratio*100));
   document.getElementById('ratio-bar').style.width=pct+'%';
-  document.getElementById('ratio-lbl').textContent=tF>0?`Ratio: ${pct}%`:'Log entries to see ratio';
+  document.getElementById('ratio-lbl').textContent = tF>0 ? ('Ratio: '+pct+'%') : 'Log entries to see ratio';
 
-  const al=document.getElementById('alert-strip');
+  var al = document.getElementById('alert-strip');
   al.className='alert-strip';
-  if(tF===0&&tU===0){ al.classList.remove('show'); }
+  if(tF===0 && tU===0){ /* hidden */ }
   else if(hF<200){ al.classList.add('show','warn'); al.innerHTML='⚠️ Fluid intake this hour is low — aim for at least 200–250 ml per hour.'; }
-  else if(ratio<0.4&&tF>300){ al.classList.add('show','warn'); al.innerHTML='⚠️ Urine output is low relative to fluid intake. Please consult your doctor.'; }
+  else if(ratio<0.4 && tF>300){ al.classList.add('show','warn'); al.innerHTML='⚠️ Urine output is low relative to intake. Please consult the doctor.'; }
   else { al.classList.add('show','ok'); al.innerHTML='✅ Hydration looks on track. Keep it up!'; }
 
-  renderMini('fluid',fluid);
-  renderMini('urine',urine);
+  renderMini('fluid', fluid);
+  renderMini('urine', urine);
 }
-function renderMini(type,entries){
-  const el=document.getElementById(`${type}-mini`);
-  if(!entries.length){ el.innerHTML='<div class="mini-empty">No entries yet</div>'; return; }
-  el.innerHTML=[...entries].reverse().slice(0,4).map(e=>`
-    <div class="mini-item">
-      <span class="mini-time">${fmt(e.ts)}</span>
-      <span class="mini-val">${e.ml} ml</span>
-      <button class="mini-del" onclick="deleteEntry('${e.id}')">✕</button>
-    </div>`).join('');
+function renderMini(type, list){
+  var el = document.getElementById(type+'-mini');
+  if(!list.length){ el.innerHTML='<div class="mini-empty">No entries yet</div>'; return; }
+  var recent = list.slice().reverse().slice(0,4);
+  el.innerHTML = recent.map(function(e){
+    return '<div class="mini-item"><span class="mini-time">'+fmt(e.ts)+'</span>'+
+           '<span class="mini-val">'+e.ml+' ml</span>'+
+           '<button class="mini-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></div>';
+  }).join('');
 }
 
-// ══ RENDER TABLE ══════════════════════════
+// ════════ RENDER: TABLE ════════
 function renderTable(){
-  const dv=document.getElementById('table-date').value;
-  const entries=state.entries.filter(e=>dateKey(e.ts)===dv).sort((a,b)=>a.ts-b.ts);
-  const fl=entries.filter(e=>e.type==='fluid'),ur=entries.filter(e=>e.type==='urine');
-  const tF=sum(fl),tU=sum(ur),ratio=tF>0?Math.round(tU/tF*100):null;
+  var dv = document.getElementById('table-date').value || todayKey();
+  var list = entriesForDate(dv).slice().sort(function(a,b){ return a.ts-b.ts; });
+  var fl = list.filter(function(e){ return e.type==='fluid'; });
+  var ur = list.filter(function(e){ return e.type==='urine'; });
+  var tF=sumAll(fl), tU=sumAll(ur);
+  var ratio = tF>0 ? Math.round(tU/tF*100) : null;
+
   document.getElementById('ts-fluid').textContent=tF;
   document.getElementById('ts-urine').textContent=tU;
-  document.getElementById('ts-ratio').textContent=ratio!==null?ratio+'%':'—';
-  const tbody=document.getElementById('table-body');
-  const empty=document.getElementById('table-empty');
-  if(!entries.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
+  document.getElementById('ts-ratio').textContent= ratio!==null ? ratio+'%' : '—';
+
+  var tbody=document.getElementById('table-body');
+  var empty=document.getElementById('table-empty');
+  if(!list.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
-  tbody.innerHTML=entries.map(e=>`
-    <tr>
-      <td class="td-time">${fmt(e.ts)}</td>
-      <td><span class="pill ${e.type}">${e.type==='fluid'?'💧 Fluid':'🌡️ Urine'}</span></td>
-      <td class="td-ml">${e.ml} ml</td>
-      <td><button class="td-del" onclick="deleteEntry('${e.id}')">✕</button></td>
-    </tr>`).join('');
+  tbody.innerHTML = list.map(function(e){
+    return '<tr><td class="td-time">'+fmt(e.ts)+'</td>'+
+           '<td><span class="pill '+e.type+'">'+(e.type==='fluid'?'💧 Fluid':'🌡️ Urine')+'</span></td>'+
+           '<td class="td-ml">'+e.ml+' ml</td>'+
+           '<td><button class="td-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></td></tr>';
+  }).join('');
 }
 function shiftDate(dir){
-  const inp=document.getElementById('table-date');
-  const d=new Date(inp.value+'T00:00:00');
+  var inp=document.getElementById('table-date');
+  var parts=(inp.value||todayKey()).split('-');
+  var d=new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
   d.setDate(d.getDate()+dir);
-  inp.value=d.toISOString().slice(0,10);
+  inp.value=localKey(d);
   renderTable();
 }
+function goToday(){ document.getElementById('table-date').value=todayKey(); renderTable(); }
 
-// ══ EXPORT ════════════════════════════════
+// ════════ EXPORT ════════
+function downloadCSV(filename, rows){
+  var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+  var blob = new Blob([csv], { type:'text/csv' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
 function exportCSV(){
-  const dv=document.getElementById('table-date').value;
-  const entries=state.entries.filter(e=>dateKey(e.ts)===dv).sort((a,b)=>a.ts-b.ts);
-  const rows=[['Date','Time','Type','Amount (ml)'],...entries.map(e=>[dv,fmt(e.ts),e.type,e.ml])];
-  const blob=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download=`recovery_${dv}.csv`; a.click();
+  var dv=document.getElementById('table-date').value || todayKey();
+  var list=entriesForDate(dv).slice().sort(function(a,b){ return a.ts-b.ts; });
+  var rows=[['Date','Time','Type','Amount (ml)']].concat(list.map(function(e){ return [dv, fmt(e.ts), e.type, e.ml]; }));
+  downloadCSV('recovery_'+dv+'.csv', rows);
+}
+function exportAll(){
+  var list=state.entries.slice().sort(function(a,b){ return a.ts-b.ts; });
+  var rows=[['Date','Time','Type','Amount (ml)']].concat(list.map(function(e){ return [dateKey(e.ts), fmt(e.ts), e.type, e.ml]; }));
+  downloadCSV('recovery_all_data.csv', rows);
 }
 
-// ══ RESET ═════════════════════════════════
+// ════════ RESET (today only) ════════
 function confirmReset(){
-  if(!confirm("Reset today's logs?")) return;
-  state.entries=state.entries.filter(e=>dateKey(e.ts)!==todayKey());
+  if(!confirm("Clear today's entries? Previous days are kept.")) return;
+  var tk=todayKey();
+  state.entries=state.entries.filter(function(e){ return dateKey(e.ts)!==tk; });
   save(); renderLog();
 }
 
-// ══ KEYBOARD ══════════════════════════════
-document.getElementById('fluid-input').addEventListener('keydown',e=>{if(e.key==='Enter')logEntry('fluid');});
-document.getElementById('urine-input').addEventListener('keydown',e=>{if(e.key==='Enter')logEntry('urine');});
+// ════════ EVENTS ════════
+document.getElementById('fluid-input').addEventListener('keydown', function(e){ if(e.key==='Enter') logEntry('fluid'); });
+document.getElementById('urine-input').addEventListener('keydown', function(e){ if(e.key==='Enter') logEntry('urine'); });
+// catch up the moment the app returns to foreground
+document.addEventListener('visibilitychange', function(){ if(!document.hidden){ tick(); renderLog(); } });
+window.addEventListener('focus', function(){ tick(); });
 
-// ══ INIT ══════════════════════════════════
-(async()=>{
-  initInstallBanner(); initNotifBanner();
-  document.getElementById('table-date').value=todayKey();
-  renderLog(); tick();
-  await registerSW();
-  if(typeof Notification!=='undefined'&&Notification.permission==='granted') scheduleAlarm();
+// ════════ INIT ════════
+(function init(){
+  initBanners();
+  document.getElementById('table-date').value = todayKey();
+  renderLog();
+  tick();
+  setInterval(tick, 1000);
+  registerSW();
 })();
 </script>
 </body>
