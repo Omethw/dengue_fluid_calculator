@@ -1,17 +1,18 @@
 {
-  "name": "Recovery Tracker",
-  "short_name": "Recovery",
+  "name": "Recovery Tracker - Dilara",
+  "short_name": "Dilara 🥰",
   "description": "Hourly fluid and urine tracker for dengue recovery",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F4FDFB",
-  "theme_color": "#0D7A6F",
+  "background_color": "#F0FAF9",
+  "theme_color": "#0A6B61",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%230D7A6F'/><text y='130' x='96' text-anchor='middle' font-size='110'>💧</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%230A6B61'/><text y='132' x='96' text-anchor='middle' font-size='104'>💧</text></svg>",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
