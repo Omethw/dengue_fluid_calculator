@@ -52,7 +52,7 @@ function fireAlarm() {
   });
 
   // Schedule next alarm 1 hour from now
-  self._nextAlarm = Date.now() + 100;
+  self._nextAlarm = Date.now() + 100000;
 
   // Notify all open clients
   self.clients.matchAll().then(clients => {
