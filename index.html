@@ -81,7 +81,7 @@
     .alert-strip.show{display:flex}
     .alert-strip.warn{background:var(--coral-dim);color:#B91C1C}
     .alert-strip.ok{background:var(--green-dim);color:var(--green)}
-    .log-card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh-sm);margin-bottom:14px}
+    .log-card{background:var(--card);border-radius:var(--r-lg);padding:20px 16px;box-shadow:var(--sh-sm);margin-bottom:14px}
     .log-card-hdr{display:flex;align-items:center;gap:12px;margin-bottom:18px}
     .log-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0}
     .log-icon.fluid{background:linear-gradient(135deg,#DBEAFE,#BFDBFE)}
@@ -89,15 +89,18 @@
     .log-card-title{font-size:1rem;font-weight:600;color:var(--text)}
     .log-card-sub{font-size:.74rem;color:var(--muted);margin-top:2px}
     .log-card-sub strong{color:var(--teal);font-weight:600}
-    .input-row{display:flex;gap:8px}
-    .amount-input{flex:1;border:2px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;font-size:1.05rem;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s}
+    .input-row{display:flex;gap:8px;width:100%}
+    .amount-input{flex:1;min-width:0;border:2px solid var(--border);border-radius:var(--r-sm);padding:14px 12px;font-size:1rem;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s}
     .amount-input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(10,107,97,.1)}
-    .unit-tag{background:var(--teal-3xl);border-radius:var(--r-sm);padding:12px 14px;font-size:.8rem;color:var(--teal);font-weight:700;display:flex;align-items:center}
-    .log-btn{background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:12px 20px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s,box-shadow .2s;box-shadow:0 2px 8px rgba(10,107,97,.3)}
+    .unit-tag{background:var(--teal-3xl);border-radius:var(--r-sm);padding:14px 10px;font-size:.8rem;color:var(--teal);font-weight:700;display:flex;align-items:center;flex-shrink:0}
+    .log-btn{background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:14px 20px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s,box-shadow .2s;box-shadow:0 2px 8px rgba(10,107,97,.3);flex-shrink:0}
     .log-btn:hover{background:var(--teal-l);box-shadow:0 4px 12px rgba(10,107,97,.4)}
     .log-btn:active{transform:scale(.96)}
-    .quick-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-    .quick-btn{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:99px;padding:6px 13px;font-size:.74rem;color:var(--teal);font-family:inherit;cursor:pointer;font-weight:600;transition:all .15s}
+    .fluid-type-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+    .fluid-type-btn{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:99px;padding:7px 14px;font-size:.76rem;color:var(--teal);font-family:inherit;cursor:pointer;font-weight:500;transition:all .15s}
+    .fluid-type-btn.selected{background:var(--teal);color:#fff;border-color:var(--teal)}
+    .quick-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .quick-btn{background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:99px;padding:10px 18px;font-size:.82rem;color:var(--teal);font-family:inherit;cursor:pointer;font-weight:600;transition:all .15s;flex:1;min-width:60px;text-align:center}
     .quick-btn:hover{background:var(--teal-2xl)}
     .mini-log{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
     .mini-item{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.82rem}
@@ -241,6 +244,14 @@
       <div class="log-icon fluid">💧</div>
       <div><div class="log-card-title">Fluids Consumed</div><div class="log-card-sub">This hour: <strong id="hr-fluid">0 ml</strong></div></div>
     </div>
+    <div class="fluid-type-row" id="fluid-type-row">
+      <button class="fluid-type-btn selected" onclick="selectFluidType('Water')" id="ft-Water">💧 Water</button>
+      <button class="fluid-type-btn" onclick="selectFluidType('ORS')" id="ft-ORS">🧃 ORS</button>
+      <button class="fluid-type-btn" onclick="selectFluidType('Juice')" id="ft-Juice">🍹 Juice</button>
+      <button class="fluid-type-btn" onclick="selectFluidType('Soup')" id="ft-Soup">🍵 Soup</button>
+      <button class="fluid-type-btn" onclick="selectFluidType('Milk')" id="ft-Milk">🥛 Milk</button>
+      <button class="fluid-type-btn" onclick="selectFluidType('Other')" id="ft-Other">➕ Other</button>
+    </div>
     <div class="input-row">
       <input class="amount-input" id="fluid-input" type="number" min="0" inputmode="numeric" placeholder="Amount…"/>
       <div class="unit-tag">ml</div>
@@ -296,7 +307,7 @@
   </div>
   <div class="table-card">
     <table>
-      <thead><tr><th>Time</th><th>Type</th><th>Amount</th><th></th></tr></thead>
+      <thead><tr><th>Time</th><th>Type</th><th>Fluid</th><th>Amount</th><th></th></tr></thead>
       <tbody id="table-body"></tbody>
     </table>
     <div class="table-empty" id="table-empty" style="display:none">
@@ -448,14 +459,22 @@ function initInstallBanner(){
 }
 
 // ════ LOGGING ════
+var selectedFluidType='Water';
+function selectFluidType(t){
+  selectedFluidType=t;
+  document.querySelectorAll('.fluid-type-btn').forEach(function(b){ b.classList.remove('selected'); });
+  var btn=document.getElementById('ft-'+t);
+  if(btn) btn.classList.add('selected');
+}
 function logEntry(type){
   var inp=document.getElementById(type+'-input');
   var val=parseFloat(inp.value);
   if(!val||val<=0){ inp.focus(); return; }
-  addEntry(type,val); inp.value='';
+  var ft=type==='fluid'?selectedFluidType:null;
+  addEntry(type,val,ft); inp.value='';
 }
-function quickLog(type,ml){ addEntry(type,ml); }
-function addEntry(type,ml){ state.entries.push({id:newId(),type:type,ml:ml,ts:Date.now()}); save(); renderLog(); }
+function quickLog(type,ml){ addEntry(type,ml,type==='fluid'?selectedFluidType:null); }
+function addEntry(type,ml,fluidType){ state.entries.push({id:newId(),type:type,ml:ml,ts:Date.now(),fluidType:fluidType||null}); save(); renderLog(); }
 function deleteEntry(id){
   state.entries=state.entries.filter(function(e){ return e.id!==id; });
   save(); renderLog();
@@ -491,7 +510,8 @@ function renderMini(type,list){
   var el=document.getElementById(type+'-mini');
   if(!list.length){ el.innerHTML='<div class="mini-empty">No entries yet</div>'; return; }
   el.innerHTML=list.slice().reverse().slice(0,4).map(function(e){
-    return '<div class="mini-item"><span class="mini-time">'+fmt(e.ts)+'</span><span class="mini-val">'+e.ml+' ml</span><button class="mini-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></div>';
+    var label=e.ml+' ml'+(e.fluidType?' · '+e.fluidType:'');
+    return '<div class="mini-item"><span class="mini-time">'+fmt(e.ts)+'</span><span class="mini-val">'+label+'</span><button class="mini-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></div>';
   }).join('');
 }
 
@@ -509,7 +529,8 @@ function renderTable(){
   if(!list.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
   tbody.innerHTML=list.map(function(e){
-    return '<tr><td class="td-time">'+fmt(e.ts)+'</td><td><span class="pill '+e.type+'">'+(e.type==='fluid'?'💧 Fluid':'🌡️ Urine')+'</span></td><td class="td-ml">'+e.ml+' ml</td><td><button class="td-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></td></tr>';
+    var ft=e.fluidType?'<span style="font-size:.75rem;color:var(--muted)">'+e.fluidType+'</span>':'<span style="color:#ddd;font-size:.75rem">—</span>';
+    return '<tr><td class="td-time">'+fmt(e.ts)+'</td><td><span class="pill '+e.type+'">'+(e.type==='fluid'?'💧 Fluid':'🌡️ Urine')+'</span></td><td>'+ft+'</td><td class="td-ml">'+e.ml+' ml</td><td><button class="td-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></td></tr>';
   }).join('');
 }
 function shiftDate(dir){
@@ -531,11 +552,11 @@ function downloadCSV(name,rows){
 function exportCSV(){
   var dv=document.getElementById('table-date').value||todayKey();
   var list=entriesForDate(dv).slice().sort(function(a,b){ return a.ts-b.ts; });
-  downloadCSV('recovery_'+dv+'.csv',[['Date','Time','Type','Amount (ml)']].concat(list.map(function(e){ return [dv,fmt(e.ts),e.type,e.ml]; })));
+  downloadCSV('recovery_'+dv+'.csv',[['Date','Time','Type','Fluid Type','Amount (ml)']].concat(list.map(function(e){ return [dv,fmt(e.ts),e.type,e.fluidType||'',e.ml]; })));
 }
 function exportAll(){
   var list=state.entries.slice().sort(function(a,b){ return a.ts-b.ts; });
-  downloadCSV('recovery_all_data.csv',[['Date','Time','Type','Amount (ml)']].concat(list.map(function(e){ return [dateKey(e.ts),fmt(e.ts),e.type,e.ml]; })));
+  downloadCSV('recovery_all_data.csv',[['Date','Time','Type','Fluid Type','Amount (ml)']].concat(list.map(function(e){ return [dateKey(e.ts),fmt(e.ts),e.type,e.fluidType||'',e.ml]; })));
 }
 
 // ════ RESET (today only) ════
