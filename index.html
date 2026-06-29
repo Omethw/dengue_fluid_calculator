@@ -128,17 +128,23 @@
     table{width:100%;border-collapse:collapse}
     thead{background:linear-gradient(90deg,var(--teal),var(--teal-m))}
     thead th{color:rgba(255,255,255,.85);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:12px 16px;text-align:left;font-weight:600}
-    tbody tr{border-bottom:1px solid var(--teal-3xl);transition:background .1s}
+    tbody tr{border-bottom:1px solid var(--teal-3xl)}
     tbody tr:last-child{border-bottom:none}
-    tbody tr:hover{background:var(--bg)}
     tbody td{padding:12px 16px;font-size:.84rem;vertical-align:middle}
     .td-time{color:var(--muted);font-size:.76rem;font-weight:500}
     .pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:4px 10px;font-size:.72rem;font-weight:600}
     .pill.fluid{background:#DBEAFE;color:#1D4ED8}
     .pill.urine{background:#FEF9C3;color:#A16207}
     .td-ml{font-weight:700;color:var(--text)}
-    .td-del{background:none;border:none;cursor:pointer;color:#CBD5E1;font-size:.85rem;padding:4px 6px;border-radius:6px;transition:color .15s,background .15s;display:flex;align-items:center;justify-content:center;margin:0 auto;line-height:1}
-    .td-del:hover{color:var(--coral);background:var(--coral-dim)}
+    /* swipe-to-delete row */
+    .swipe-wrap{position:relative;overflow:hidden;border-bottom:1px solid var(--teal-3xl)}
+    .swipe-wrap:last-child{border-bottom:none}
+    .swipe-row{display:flex;align-items:center;gap:0;background:var(--card);transition:transform .25s ease;will-change:transform;touch-action:pan-y;user-select:none;-webkit-user-select:none;padding:13px 14px;gap:12px}
+    .swipe-row .td-time{color:var(--muted);font-size:.76rem;font-weight:500;min-width:38px}
+    .swipe-row .td-ml{font-weight:700;color:var(--text);margin-left:auto}
+    .ft-label{font-size:.75rem;color:var(--muted)}
+    .ft-none{font-size:.75rem;color:#ddd}
+    .swipe-del-bg{position:absolute;right:0;top:0;bottom:0;width:80px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;gap:4px}
     .table-empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:.88rem}
     .table-empty-icon{font-size:2.5rem;margin-bottom:10px}
     .export-btn{width:100%;background:var(--teal-3xl);border:1.5px solid var(--teal-2xl);border-radius:var(--r-sm);padding:13px;font-family:inherit;font-size:.85rem;color:var(--teal);cursor:pointer;font-weight:600;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
@@ -307,7 +313,7 @@
   </div>
   <div class="table-card">
     <table>
-      <thead><tr><th>Time</th><th>Type</th><th>Fluid</th><th>Amount</th><th></th></tr></thead>
+      <thead><tr><th>Time</th><th>Type</th><th>Fluid</th><th>Amount</th></tr></thead>
       <tbody id="table-body"></tbody>
     </table>
     <div class="table-empty" id="table-empty" style="display:none">
@@ -527,11 +533,65 @@ function renderTable(){
   var tbody=document.getElementById('table-body'), empty=document.getElementById('table-empty');
   if(!list.length){ tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
-  tbody.innerHTML=list.map(function(e){
-    var ft=e.fluidType?'<span style="font-size:.75rem;color:var(--muted)">'+e.fluidType+'</span>':'<span style="color:#ddd;font-size:.75rem">—</span>';
-    return '<tr><td class="td-time">'+fmt(e.ts)+'</td><td><span class="pill '+e.type+'">'+(e.type==='fluid'?'💧 Fluid':'🌡️ Urine')+'</span></td><td>'+ft+'</td><td class="td-ml">'+e.ml+' ml</td><td><button class="td-del" onclick="deleteEntry(\''+e.id+'\')">✕</button></td></tr>';
-  }).join('');
+  tbody.innerHTML='';
+  list.forEach(function(e){
+    var ft=e.fluidType?'<span class="ft-label">'+e.fluidType+'</span>':'<span class="ft-none">—</span>';
+    var wrap=document.createElement('tr');
+    wrap.className='swipe-wrap';
+    wrap.id='wrap-'+e.id;
+    wrap.innerHTML=
+      '<td colspan="4" style="padding:0;position:relative;overflow:hidden">'+
+        '<div class="swipe-del-bg"><span>🗑</span><span>Delete</span></div>'+
+        '<div class="swipe-row" id="row-'+e.id+'" data-id="'+e.id+'">'+
+          '<span class="td-time">'+fmt(e.ts)+'</span>'+
+          '<span class="pill '+e.type+'">'+(e.type==='fluid'?'💧 Fluid':'🌡️ Urine')+'</span>'+
+          ft+
+          '<span class="td-ml">'+e.ml+' ml</span>'+
+        '</div>'+
+      '</td>';
+    tbody.appendChild(wrap);
+  });
+  attachSwipeListeners();
 }
+function attachSwipeListeners(){
+  document.querySelectorAll('.swipe-row').forEach(function(row){
+    var id=row.dataset.id;
+    var startX=0, currentX=0, isDragging=false, threshold=70;
+
+    function onStart(x){
+      startX=x; currentX=0; isDragging=true;
+      row.style.transition='none';
+    }
+    function onMove(x){
+      if(!isDragging) return;
+      currentX=Math.min(0, x-startX); // only allow left swipe
+      row.style.transform='translateX('+currentX+'px)';
+    }
+    function onEnd(){
+      if(!isDragging) return;
+      isDragging=false;
+      row.style.transition='transform .25s ease';
+      if(currentX < -threshold){
+        // snap fully open then delete
+        row.style.transform='translateX(-80px)';
+        setTimeout(function(){ deleteEntry(id); },300);
+      } else {
+        row.style.transform='translateX(0)';
+      }
+    }
+
+    // Touch events (mobile)
+    row.addEventListener('touchstart',function(e){ onStart(e.touches[0].clientX); },{passive:true});
+    row.addEventListener('touchmove',function(e){ onMove(e.touches[0].clientX); },{passive:true});
+    row.addEventListener('touchend',onEnd);
+
+    // Mouse events (desktop testing)
+    row.addEventListener('mousedown',function(e){ onStart(e.clientX); });
+    window.addEventListener('mousemove',function(e){ if(isDragging) onMove(e.clientX); });
+    window.addEventListener('mouseup',onEnd);
+  });
+}
+
 function shiftDate(dir){
   var inp=document.getElementById('table-date');
   var p=(inp.value||todayKey()).split('-');
